@@ -2,6 +2,7 @@
 #include <string>
 
 #include "libs/cursor.h"
+#include "libs/game.h"
 
 void clearConsole()
 {
@@ -9,12 +10,15 @@ void clearConsole()
     system("cls");
 }
 
+Game game;
+
 void onConfirm(int cursorIndex) {
     switch (cursorIndex)
     {
     case 0:
         // TODO: Start making the game
-        std::cout << "New Game Starts here!!" << std::endl;
+        // std::cout << "New Game Starts here!!" << std::endl;
+        game.play();
         break;
     case 1:
         clearConsole();
