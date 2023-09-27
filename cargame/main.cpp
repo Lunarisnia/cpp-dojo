@@ -1,19 +1,33 @@
 #include <iostream>
 #include <string>
-#include <curses.h>
 
+#include "libs/cursor.h"
+
+void clearConsole()
+{
+    // TODO: Check if os is Windows/mac/linux and set the command accordingly
+    system("cls");
+}
+
+void onConfirm() {
+    // TODO: Implement this further and start the games
+    std::cout << "CONFIRMED" << std::endl;
+}
 
 int main()
 {
-    int cursorLocationIndex = 1;
     std::string choices[2] = {"New Game", "Exit"};
+    int choicesCount = sizeof(choices) / sizeof(choices[0]);
+    Cursor cursor(choicesCount);
 
     while (true)
     {
+        clearConsole();
         std::cout << "Welcome to CarGame" << std::endl;
-        for (int i = 0; i < choices->length(); i++)
+        int choicesCount = sizeof(choices) / sizeof(choices[0]);
+        for (int i = 0; i < choicesCount; i++)
         {
-            if (cursorLocationIndex == i)
+            if (cursor.get_cursor_position_index() == i)
             {
                 std::cout << "> " << choices[i] << std::endl;
             }
@@ -22,11 +36,8 @@ int main()
                 std::cout << choices[i] << std::endl;
             }
         }
-        int ch = getch();
-        // TODO: Implement this
+        cursor.wait_for_input(onConfirm);
     }
-
-    // system("clear");
 
     return 0;
 }
