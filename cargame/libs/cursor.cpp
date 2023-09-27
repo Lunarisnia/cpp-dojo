@@ -40,7 +40,7 @@ int Cursor::get_cursor_position_index() {
     return cursorPosition;
 }
 
-void Cursor::wait_for_input(void (*on_confirm)())
+void Cursor::wait_for_input(void (*on_confirm)(int cursorIndex))
 {
     int pressedKey = getch();
     switch (pressedKey)
@@ -61,10 +61,10 @@ void Cursor::wait_for_input(void (*on_confirm)())
     }
 }
 
-void Cursor::confirm_action(void (*on_confirm)()) {
+void Cursor::confirm_action(void (*on_confirm)(int cursorIndex)) {
     confirmAction(on_confirm);
 }
 
-void Cursor::confirmAction(void (*on_confirm)()) {
-    on_confirm();
+void Cursor::confirmAction(void (*on_confirm)(int cursorIndex)) {
+    on_confirm(cursorPosition);
 }

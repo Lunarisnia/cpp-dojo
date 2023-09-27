@@ -9,9 +9,24 @@ void clearConsole()
     system("cls");
 }
 
-void onConfirm() {
-    // TODO: Implement this further and start the games
-    std::cout << "CONFIRMED" << std::endl;
+void onConfirm(int cursorIndex) {
+    switch (cursorIndex)
+    {
+    case 0:
+        // TODO: Start making the game
+        std::cout << "New Game Starts here!!" << std::endl;
+        break;
+    case 1:
+        clearConsole();
+        std::cout << "Thank you! Good bye..." << std::endl;
+        exit(0);
+        break;
+    
+    default:
+        std::cout << "WHAT!???? HOW DO YOU FIND THIS?" << std::endl;
+        exit(0); 
+        break;
+    }
 }
 
 int main()
