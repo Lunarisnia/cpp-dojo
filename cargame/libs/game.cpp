@@ -17,6 +17,10 @@ const int DISPLAY_LENGTH = 6;
 Road renderedRoad[DISPLAY_LENGTH];
 Player player = Player(ROAD_WIDTH);
 
+int generateObstacleCount() {
+    return std::rand() % 2;
+}
+
 // Should render roadBlank
 void Game::render(bool *mainLoop)
 {
@@ -30,14 +34,14 @@ void Game::render(bool *mainLoop)
             renderedRoad[y] = renderedRoad[y - 1];
         }
         renderedRoad[0] = Road();
-        renderedRoad[0].set_metadata(ROAD_WIDTH, 2, &player);
+        renderedRoad[0].set_metadata(ROAD_WIDTH, generateObstacleCount(), &player);
     }
     else
     {
         for (int y = 0; y < 6; y++)
         {
             renderedRoad[y] = Road();
-            renderedRoad[y].set_metadata(ROAD_WIDTH, 1, &player);
+            renderedRoad[y].set_metadata(ROAD_WIDTH, generateObstacleCount(), &player);
         }
     }
     for (int y = 0; y < DISPLAY_LENGTH; y++)
@@ -62,6 +66,7 @@ void Game::render(bool *mainLoop)
             }
         }
     }
+    std::cout << "Score: " << tick << std::endl;
 }
 
 void Game::play()
