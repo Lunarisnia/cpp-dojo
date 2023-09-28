@@ -6,6 +6,10 @@ class Player
     struct
     {
         int x;
+    } playerPositionOrigin;
+    struct
+    {
+        int x;
     } playerPosition;
 
     char playerAvatar = '^';
@@ -19,6 +23,7 @@ public:
     char get_avatar();
     int get_position();
     void kill();
+    void revive();
     bool is_player_alive();
 };
 

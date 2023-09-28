@@ -67,18 +67,36 @@ void Game::render(bool *mainLoop)
 void Game::play()
 {
     bool mainLoop = true;
-    player = Player(ROAD_WIDTH);
+    bool isInputValid = true;
+    tick = 0;
+    player.revive();
     while (mainLoop)
     {
-        render(&mainLoop);
+        if (isInputValid)
+        {
+            render(&mainLoop);
+        }
         // Wait for input
         int pressedKey = getch(); // TODO: This should not block the main thread later
-        if (pressedKey == ESCAPE)
+        switch (pressedKey)
         {
-            exit(0);
+        case KEY_LEFT:
+            player.move_left();
+            isInputValid = true;
+            break;
+        case KEY_RIGHT:
+            player.move_right();
+            isInputValid = true;
+            break;
+        default:
+            isInputValid = false;
+            break;
         }
         // std::this_thread::sleep_for(std::chrono::milliseconds(50));
-        tick++;
+        if (isInputValid)
+        {
+            tick++;
+        }
         // Calculate score
     }
 }

@@ -4,7 +4,8 @@
 #include "player.h"
 
 Player::Player(int roadWidth) {
-    playerPosition.x = std::floor(roadWidth / 2);
+    playerPositionOrigin.x = std::floor(roadWidth / 2);
+    playerPosition.x = playerPositionOrigin.x;
     isAlive = true;
 }
 
@@ -26,6 +27,11 @@ int Player::get_position() {
 
 void Player::kill() {
     isAlive = false;
+}
+
+void Player::revive() {
+    isAlive = true;
+    playerPosition.x = playerPositionOrigin.x;
 }
 
 bool Player::is_player_alive() {
