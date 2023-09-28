@@ -1,11 +1,13 @@
 #include <iostream>
 
 #include "road.h"
+#include "player.h"
 
-void Road::set_metadata(int roadWidth, int obstacleCount)
+void Road::set_metadata(int roadWidth, int obstacleCount, Player *player)
 {
     Road::roadWidth = roadWidth;
     Road::obstacleCount = obstacleCount;
+    Road::player = player;
     if (Road::obstacleCount > 0)
     {
         int lastPosition = 0;
@@ -25,42 +27,86 @@ void Road::set_metadata(int roadWidth, int obstacleCount)
     }
 }
 
-bool isObstaclePosition(std::vector<int> obstaclePosition, int currentPosition) {
+bool isObstaclePosition(std::vector<int> obstaclePosition, int currentPosition)
+{
     bool matched = false;
-    for(auto i = obstaclePosition.begin(); i != obstaclePosition.end(); i++) {
-        if (currentPosition == *i) {
+    for (auto i = obstaclePosition.begin(); i != obstaclePosition.end(); i++)
+    {
+        if (currentPosition == *i)
+        {
             matched = true;
-        } 
+        }
     }
     return matched;
 }
 
-void Road::draw_road()
+bool isPlayerPosition(int currentPosition, int playerPosition)
+{
+    return currentPosition == playerPosition;
+}
+
+void Road::draw_road(int yAxis, int displayLength)
 {
     for (int i = 0; i <= roadWidth; i++)
     {
         if (i == 0 || (i == roadWidth))
         {
-            std::cout << '*';
+            if (yAxis == displayLength - 1)
+            {
+                if (isPlayerPosition(i, player->get_position()))
+                {
+                    std::cout << player->get_avatar();
+
+                    // Set gameover because it hits the wall
+                }
+                else
+                {
+                    std::cout << '*';
+                }
+            }
+            else
+            {
+                std::cout << '*';
+            }
         }
         else
         {
-            // if has obstacle should render obstacle too randomly along this
-            if (isObstaclePosition(obstaclePosition, i)) {
-                std::cout << 'O';
-            } else {
-                std::cout << ' ';
+            if (yAxis == displayLength - 1)
+            {
+                if (isPlayerPosition(i, player->get_position()))
+                {
+                    std::cout << player->get_avatar();
+
+                    // Set gameover because it hits an obstacle
+                    if (isObstaclePosition(obstaclePosition, i)) {
+                    }
+                }
+                else
+                {
+                    // if has obstacle should render obstacle too randomly along this
+                    if (isObstaclePosition(obstaclePosition, i))
+                    {
+                        std::cout << 'O';
+                    }
+                    else
+                    {
+                        std::cout << ' ';
+                    }
+                }
             }
-            // if this is the most bottom lane should also render player
+            else
+            {
+                // if has obstacle should render obstacle too randomly along this
+                if (isObstaclePosition(obstaclePosition, i))
+                {
+                    std::cout << 'O';
+                }
+                else
+                {
+                    std::cout << ' ';
+                }
+            }
         }
     }
     std::cout << std::endl;
-}
-
-void Road::draw_player(int x, int y)
-{
-    // Draw the player in the corresponding position
-    // Check if the player hit anything
-    // if the player hit something then game over
-    std::cout << "Unimplemented" << std::endl;
 }
