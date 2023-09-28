@@ -9,6 +9,8 @@ class Player
     } playerPosition;
 
     char playerAvatar = '^';
+    char diedAvatar = 'x';
+    bool isAlive = true;
 
 public:
     Player(int roadWidth);
@@ -16,6 +18,8 @@ public:
     void move_right();
     char get_avatar();
     int get_position();
+    void kill();
+    bool is_player_alive();
 };
 
 #endif

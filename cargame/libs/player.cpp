@@ -4,8 +4,8 @@
 #include "player.h"
 
 Player::Player(int roadWidth) {
-    // playerPosition.x = std::floor(roadWidth / 2);
-    playerPosition.x = 0;
+    playerPosition.x = std::floor(roadWidth / 2);
+    isAlive = true;
 }
 
 void Player::move_left() {
@@ -17,9 +17,17 @@ void Player::move_right() {
 }
 
 char Player::get_avatar() {
-    return playerAvatar;
+    return isAlive ? playerAvatar : diedAvatar;
 }
 
 int Player::get_position() {
     return playerPosition.x;
+}
+
+void Player::kill() {
+    isAlive = false;
+}
+
+bool Player::is_player_alive() {
+    return isAlive;
 }

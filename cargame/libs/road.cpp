@@ -45,7 +45,7 @@ bool isPlayerPosition(int currentPosition, int playerPosition)
     return currentPosition == playerPosition;
 }
 
-void Road::draw_road(int yAxis, int displayLength)
+void Road::draw_road(int yAxis, int displayLength, int globalTick)
 {
     for (int i = 0; i <= roadWidth; i++)
     {
@@ -55,9 +55,10 @@ void Road::draw_road(int yAxis, int displayLength)
             {
                 if (isPlayerPosition(i, player->get_position()))
                 {
-                    std::cout << player->get_avatar();
-
                     // Set gameover because it hits the wall
+                    player->kill();
+
+                    std::cout << player->get_avatar();
                 }
                 else
                 {
@@ -75,11 +76,16 @@ void Road::draw_road(int yAxis, int displayLength)
             {
                 if (isPlayerPosition(i, player->get_position()))
                 {
-                    std::cout << player->get_avatar();
-
-                    // Set gameover because it hits an obstacle
-                    if (isObstaclePosition(obstaclePosition, i)) {
+                    // Only start checking for death after 1st tick to avoid instakill
+                    if (globalTick > 0)
+                    {
+                        // Set gameover because it hits an obstacle
+                        if (isObstaclePosition(obstaclePosition, i))
+                        {
+                            player->kill();
+                        }
                     }
+                    std::cout << player->get_avatar();
                 }
                 else
                 {
@@ -109,4 +115,8 @@ void Road::draw_road(int yAxis, int displayLength)
         }
     }
     std::cout << std::endl;
+}
+
+void Road::draw_game_over() {
+    std::cout << "  You Died" << std::endl;
 }

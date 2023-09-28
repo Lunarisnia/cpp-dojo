@@ -12,7 +12,8 @@ class Road
 
 public:
     void set_metadata(int roadWidth, int obstacleCount, Player *player); 
-    void draw_road(int yAxis, int displayLength);
+    void draw_road(int yAxis, int displayLength, int globalTick);
+    void draw_game_over();
 };
 
 #endif

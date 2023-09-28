@@ -16,7 +16,7 @@ public:
     void play();
 
 private:
-    void render();
+    void render(bool *mainLoop);
 };
 
 #endif
