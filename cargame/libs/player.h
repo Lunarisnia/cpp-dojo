@@ -25,6 +25,7 @@ public:
     void kill();
     void revive();
     bool is_player_alive();
+    void set_position(int newPosition);
 };
 
 #endif

@@ -17,7 +17,8 @@ const int DISPLAY_LENGTH = 6;
 Road renderedRoad[DISPLAY_LENGTH];
 Player player = Player(ROAD_WIDTH);
 
-int generateObstacleCount() {
+int generateObstacleCount()
+{
     return std::rand() % 2;
 }
 
@@ -49,6 +50,12 @@ void Game::render(bool *mainLoop)
         renderedRoad[y].draw_road(y, DISPLAY_LENGTH, tick);
     }
 
+    // Player is out of bound so we kill them
+    if ((player.get_position() > ROAD_WIDTH) || (player.get_position() < 0)) {
+        player.kill();
+        player.set_position((player.get_position() < 0) ? 0 : ROAD_WIDTH);
+    }
+
     // Player is dead, stop the main loop
     if (!player.is_player_alive())
     {
@@ -67,6 +74,29 @@ void Game::render(bool *mainLoop)
         }
     }
     std::cout << "Score: " << tick << std::endl;
+    if (!player.is_player_alive()) {
+        std::cout << "Press Any Key Twice" << std::endl;
+    }
+}
+
+void checkUserInput(bool *mainLoop)
+{
+    while (*mainLoop)
+    {
+        int pressedKey = getch();
+        switch (pressedKey)
+        {
+        case KEY_LEFT:
+            player.move_left();
+            break;
+        case KEY_RIGHT:
+            player.move_right();
+            break;
+        default:
+            break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
 }
 
 void Game::play()
@@ -75,33 +105,19 @@ void Game::play()
     bool isInputValid = true;
     tick = 0;
     player.revive();
+
+    // std::thread userInput(checkUserInput);
+    // userInput.detach();
     while (mainLoop)
     {
-        if (isInputValid)
+        render(&mainLoop);
+        if (tick == 0)
         {
-            render(&mainLoop);
+            std::thread userInput(checkUserInput, &mainLoop);
+            userInput.detach();
         }
-        // Wait for input
-        int pressedKey = getch(); // TODO: This should not block the main thread later
-        switch (pressedKey)
-        {
-        case KEY_LEFT:
-            player.move_left();
-            isInputValid = true;
-            break;
-        case KEY_RIGHT:
-            player.move_right();
-            isInputValid = true;
-            break;
-        default:
-            isInputValid = false;
-            break;
-        }
-        // std::this_thread::sleep_for(std::chrono::milliseconds(50));
-        if (isInputValid)
-        {
-            tick++;
-        }
-        // Calculate score
+        tick++;
+        std::this_thread::sleep_for(std::chrono::milliseconds(150));
     }
+    getch();
 }

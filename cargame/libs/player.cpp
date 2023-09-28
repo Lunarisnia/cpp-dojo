@@ -37,3 +37,7 @@ void Player::revive() {
 bool Player::is_player_alive() {
     return isAlive;
 }
+
+void Player::set_position(int newPosition) {
+    playerPosition.x = newPosition;
+}
