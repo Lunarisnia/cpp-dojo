@@ -76,8 +76,8 @@ void Road::draw_road(int yAxis, int displayLength, int globalTick)
             {
                 if (isPlayerPosition(i, player->get_position()))
                 {
-                    // Only start checking for death after 1st tick to avoid instakill
-                    if (globalTick > 0)
+                    // Only start checking for death after 5th tick to avoid instakill
+                    if (globalTick > 5)
                     {
                         // Set gameover because it hits an obstacle
                         if (isObstaclePosition(obstaclePosition, i))
