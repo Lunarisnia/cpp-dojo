@@ -4,6 +4,7 @@
 // #include <curses.h> // Mac
 
 #include "cursor.h"
+#include "constants/keyboard_codes.h"
 
 Cursor::Cursor(int opt_count)
 {

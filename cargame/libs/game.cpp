@@ -8,6 +8,7 @@
 #include "game.h"
 #include "road.h"
 #include "player.h"
+#include "constants/keyboard_codes.h"
 
 int tick = 0;
 
