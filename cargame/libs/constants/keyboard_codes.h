@@ -7,5 +7,6 @@
 #define KEY_RIGHT 100
 #define ENTER 13
 #define ESCAPE 27
+#define SPACE 32
 
 #endif

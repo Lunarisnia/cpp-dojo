@@ -52,6 +52,7 @@ void Cursor::wait_for_input(void (*on_confirm)(int cursorIndex))
     case KEY_DOWN:
         move_down();
         break;
+    case SPACE:
     case ENTER:
         confirm_action(on_confirm);
         break;
