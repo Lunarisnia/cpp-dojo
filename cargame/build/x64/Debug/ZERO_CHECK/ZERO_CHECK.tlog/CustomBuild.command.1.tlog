@@ -1,0 +1,10 @@
+^D:\PERSONAL\WORKPLACE\CPP\CARGAME\BUILD\CMAKEFILES\0FDD5C3B5A8BF5CF79096FD9902273F2\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Personal/Workplace/cpp/cargame -BD:/Personal/Workplace/cpp/cargame/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Personal/Workplace/cpp/cargame/build/CarGame.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,10 @@
+^D:\PERSONAL\WORKPLACE\CPP\CARGAME\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Personal/Workplace/cpp/cargame -BD:/Personal/Workplace/cpp/cargame/build --check-stamp-file D:/Personal/Workplace/cpp/cargame/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
