@@ -22,10 +22,13 @@ namespace log
         exit(1);
     }
 }
+
 // TODO: Continue, keep this in mind https://chat.openai.com/c/907ea441-7576-4acd-85ca-ccbfd2cbdc8b
 namespace http
 {
-    TcpServer::TcpServer()
+    TcpServer::TcpServer(std::string ip_address, int port)
+        : m_socketAddress(), m_addr(), m_socket(), m_ip_address(ip_address),
+          m_port(port)
     {
         std::cout << "TcpServer Created" << std::endl;
     }

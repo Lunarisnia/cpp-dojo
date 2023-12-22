@@ -2,7 +2,8 @@
 #include "http_tcpServer_linux.h"
 
 int main() {
-    http::TcpServer *server = new http::TcpServer();
+    http::TcpServer *server = new http::TcpServer("0.0.0.0", 8080);
+    int result = server->startServer();
     std::cout << "Hello, World" << std::endl;
 
     return 0;
